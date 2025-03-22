@@ -181,7 +181,7 @@ html, body {
   padding: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  position: relative; /* Para posicionar el menú */
+  position: relative;
 }
 
 .colmena-header {
@@ -200,23 +200,23 @@ html, body {
   display: flex;
   align-items: center;
   gap: 10px;
-  position: relative; /* Para posicionar el menú desplegable */
+  position: relative;
 }
 
 .dropdown-icon {
   font-size: 16px;
   color: #666666;
   cursor: pointer;
-  transition: transform 0.2s ease; /* Transición para el efecto de zoom */
+  transition: transform 0.2s ease;
 }
 
 .dropdown-icon:hover {
-  transform: scale(1.3); /* Efecto de zoom al pasar el cursor */
+  transform: scale(1.3);
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 25px; /* Ajusta según el tamaño del ícono */
+  top: 25px;
   right: 0;
   background-color: #FFFFFF;
   border: 1px solid #ddd;
@@ -239,7 +239,7 @@ html, body {
 .audio-icon {
   width: 20px;
   height: 20px;
-  cursor: pointer; /* Indica que es clickable */
+  cursor: pointer;
 }
 
 .colmena-image-placeholder {
@@ -277,6 +277,11 @@ html, body {
 
 .stat-icon {
   font-size: 16px;
+  transition: transform 0.2s ease; /* Transición para el efecto de zoom */
+}
+
+.stat-icon:hover {
+  transform: scale(1.3); /* Efecto de zoom al pasar el cursor */
 }
 
 .stat-item span {
@@ -431,4 +436,19 @@ html, body {
   background-color: #6f42c1;
   color: #FFFFFF;
   border-radius: 50%;
+}
+
+.submit-button {
+  padding: 8px 16px;
+  background-color: #FFC107;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.submit-button:hover {
+  background-color: #e0a800;
 }

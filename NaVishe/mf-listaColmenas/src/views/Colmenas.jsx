@@ -8,25 +8,26 @@ import colmenaImage from "../assets/img_colmena.jpg";
 import enVivoIcon from "../assets/en-vivo.png";
 
 const Colmenas = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal de agregar
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false); // Modal del mapa
+  const [isModifyModalOpen, setIsModifyModalOpen] = useState(false); // Modal de modificar
+  const [selectedColmena, setSelectedColmena] = useState(null); // Colmena seleccionada para modificar o ver mapa
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(9);
   const [currentYear, setCurrentYear] = useState(2021);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [openMenuId, setOpenMenuId] = useState(null); // Controla qué menú está abierto
-
-  // Referencia para detectar clics fuera del menú
-  const menuRef = useRef(null);
-
-  const colmenas = [
+  const [openMenuId, setOpenMenuId] = useState(null);
+  const [colmenas, setColmenas] = useState([
     { id: "3213", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.2637, lng: -57.5759 },
     { id: "6436", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.3000, lng: -57.6000 },
     { id: "5436", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.2800, lng: -57.5800 },
     { id: "6452", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.2700, lng: -57.5900 },
     { id: "7482", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.2600, lng: -57.5700 },
     { id: "8764", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.2500, lng: -57.5600 },
-  ];
+  ]);
+
+  const menuRef = useRef(null);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -37,6 +38,44 @@ const Colmenas = () => {
     setIsCalendarOpen(false);
   };
 
+  const handleOpenMapModal = (colmena) => {
+    setSelectedColmena(colmena);
+    setIsMapModalOpen(true);
+  };
+
+  const handleCloseMapModal = () => {
+    setIsMapModalOpen(false);
+    setSelectedColmena(null);
+  };
+
+  const handleOpenModifyModal = (colmena) => {
+    setSelectedColmena(colmena);
+    setIsModifyModalOpen(true);
+    setOpenMenuId(null);
+  };
+
+  const handleCloseModifyModal = () => {
+    setIsModifyModalOpen(false);
+    setSelectedColmena(null);
+    setIsCalendarOpen(false);
+  };
+
+  const handleModifySubmit = (e) => {
+    e.preventDefault();
+    // Aquí puedes implementar la lógica para actualizar la colmena
+    console.log("Colmena modificada:", selectedColmena);
+    handleCloseModifyModal();
+  };
+
+  const handleDelete = (id) => {
+    const confirmDelete = window.confirm("¿Estás seguro de que deseas eliminar esta colmena?");
+    if (confirmDelete) {
+      setColmenas(colmenas.filter((colmena) => colmena.id !== id));
+      console.log(`Colmena con ID ${id} eliminada`);
+    }
+    setOpenMenuId(null);
+  };
+
   const toggleCalendar = () => {
     setIsCalendarOpen(!isCalendarOpen);
   };
@@ -45,26 +84,10 @@ const Colmenas = () => {
     setSearchTerm(e.target.value);
   };
 
-  const handleOpenGoogleMaps = (lat, lng) => {
-    const url = `https://www.google.com/maps?q=${lat},${lng}&z=15`;
-    window.open(url, "_blank");
-  };
-
   const toggleMenu = (id) => {
     setOpenMenuId(openMenuId === id ? null : id);
   };
 
-  const handleModify = (id) => {
-    console.log(`Modificar colmena con ID: ${id}`);
-    setOpenMenuId(null); // Cierra el menú
-  };
-
-  const handleDelete = (id) => {
-    console.log(`Eliminar colmena con ID: ${id}`);
-    setOpenMenuId(null); // Cierra el menú
-  };
-
-  // Cerrar el menú si se hace clic fuera de él
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -209,7 +232,7 @@ const Colmenas = () => {
                       <div className="dropdown-menu" ref={menuRef}>
                         <div
                           className="menu-item"
-                          onClick={() => handleModify(colmena.id)}
+                          onClick={() => handleOpenModifyModal(colmena)}
                         >
                           Modificar
                         </div>
@@ -225,7 +248,7 @@ const Colmenas = () => {
                       src={enVivoIcon}
                       alt="En Vivo"
                       className="audio-icon"
-                      onClick={() => handleOpenGoogleMaps(colmena.lat, colmena.lng)}
+                      onClick={() => handleOpenMapModal(colmena)}
                     />
                   </div>
                 </div>
@@ -260,7 +283,7 @@ const Colmenas = () => {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Modal de Agregar */}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal">
@@ -337,6 +360,149 @@ const Colmenas = () => {
                   )}
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal del Mapa */}
+      {isMapModalOpen && selectedColmena && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <div className="modal-header">
+              <h2>Ubicación de la Colmena {selectedColmena.id}</h2>
+              <button className="modal-close" onClick={handleCloseMapModal}>
+                ✕
+              </button>
+            </div>
+            <div className="modal-body">
+              <iframe
+                width="100%"
+                height="300"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${selectedColmena.lat},${selectedColmena.lng}&zoom=15`}
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de Modificar */}
+      {isModifyModalOpen && selectedColmena && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <div className="modal-header">
+              <h2>Modificar Colmena {selectedColmena.id}</h2>
+              <button className="modal-close" onClick={handleCloseModifyModal}>
+                ✕
+              </button>
+            </div>
+            <div className="modal-body">
+              <form onSubmit={handleModifySubmit}>
+                <div className="form-group">
+                  <label>Código</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedColmena.id}
+                    onChange={(e) =>
+                      setSelectedColmena({ ...selectedColmena, id: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Temperatura</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedColmena.temp}
+                    onChange={(e) =>
+                      setSelectedColmena({ ...selectedColmena, temp: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Humedad</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedColmena.humidity}
+                    onChange={(e) =>
+                      setSelectedColmena({ ...selectedColmena, humidity: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Peso</label>
+                  <input
+                    type="text"
+                    defaultValue={selectedColmena.weight}
+                    onChange={(e) =>
+                      setSelectedColmena({ ...selectedColmena, weight: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Fecha de Instalación</label>
+                  <div className="date-picker">
+                    <input
+                      type="text"
+                      value={
+                        selectedDate
+                          ? `${selectedDate.getDate()} de ${
+                              months[selectedDate.getMonth()]
+                            } ${selectedDate.getFullYear()}`
+                          : "Selecciona una fecha"
+                      }
+                      onClick={toggleCalendar}
+                      readOnly
+                    />
+                    {isCalendarOpen && (
+                      <div className="calendar">
+                        <div className="calendar-header">
+                          <button onClick={handlePrevMonth}>◄</button>
+                          <span>{`${months[currentMonth]} ${currentYear}`}</span>
+                          <button onClick={handleNextMonth}>►</button>
+                        </div>
+                        <div className="calendar-body">
+                          <div className="calendar-days">
+                            <span>M</span>
+                            <span>T</span>
+                            <span>W</span>
+                            <span>T</span>
+                            <span>F</span>
+                            <span>S</span>
+                            <span>S</span>
+                          </div>
+                          <div className="calendar-dates">
+                            {emptyDays.map((_, index) => (
+                              <span key={`empty-${index}`} className="empty"></span>
+                            ))}
+                            {daysArray.map((day) => (
+                              <span
+                                key={day}
+                                className={
+                                  selectedDate &&
+                                  selectedDate.getDate() === day &&
+                                  selectedDate.getMonth() === currentMonth &&
+                                  selectedDate.getFullYear() === currentYear
+                                    ? "selected"
+                                    : ""
+                                }
+                                onClick={() => handleDateSelect(day)}
+                              >
+                                {day}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <button type="submit" className="submit-button">
+                  Guardar Cambios
+                </button>
+              </form>
             </div>
           </div>
         </div>

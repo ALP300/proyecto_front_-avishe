@@ -4,22 +4,23 @@ import naVisheLogo from "../assets/na-vishe-logo.png";
 import camerasIcon from "../assets/cameras-icon.png";
 import workerIcon from "../assets/worker-icon.png";
 import logoutIcon from "../assets/logout-icon.png";
+import colmenaImage from "../assets/img_colmena.jpg"; 
 
 const Colmenas = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null); // Fecha seleccionada
-  const [currentMonth, setCurrentMonth] = useState(9); // Octubre (0 = Enero, 9 = Octubre)
-  const [currentYear, setCurrentYear] = useState(2021); // Año inicial
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false); // Controla la visibilidad del calendario
-  const [searchTerm, setSearchTerm] = useState(""); // Término de búsqueda
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [currentMonth, setCurrentMonth] = useState(9);
+  const [currentYear, setCurrentYear] = useState(2021); 
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   const colmenas = [
-    { id: "3213", temp: "20°C", humidity: "10%", weight: "20 k", audio: true },
-    { id: "6436", temp: "20°C", humidity: "10%", weight: "20 k", audio: true },
-    { id: "5436", temp: "20°C", humidity: "10%", weight: "20 k", audio: true },
-    { id: "6452", temp: "20°C", humidity: "10%", weight: "20 k", audio: true },
-    { id: "7482", temp: "20°C", humidity: "10%", weight: "20 k", audio: true },
-    { id: "8764", temp: "20°C", humidity: "10%", weight: "20 k", audio: true },
+    { id: "3213", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
+    { id: "6436", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
+    { id: "5436", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
+    { id: "6452", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
+    { id: "7482", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
+    { id: "8764", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
   ];
 
   const handleOpenModal = () => {
@@ -166,7 +167,11 @@ const Colmenas = () => {
                   </div>
                 </div>
                 <div className="colmena-image-placeholder">
-                  <span>🐝</span>
+                  <img
+                    src={colmena.image} // Usamos la imagen del array colmenas
+                    alt="Colmena"
+                    className="colmena-image"
+                  />
                 </div>
                 <div className="colmena-stats">
                   <div className="stat-item">

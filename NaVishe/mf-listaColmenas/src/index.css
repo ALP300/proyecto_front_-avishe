@@ -96,7 +96,7 @@ html, body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra el contenido horizontalmente */
+  align-items: center;
 }
 
 .header {
@@ -108,7 +108,7 @@ html, body {
   padding: 10px 20px;
   border-radius: 5px;
   width: 100%;
-  max-width: 1200px; /* Ancho máximo del header para que esté alineado con las tarjetas */
+  max-width: 1200px;
 }
 
 .header-left h2 {
@@ -167,11 +167,11 @@ html, body {
 /* Cuadrícula de colmenas */
 .colmenas-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   width: 100%;
-  max-width: 1200px; /* Ancho máximo para centrar las tarjetas */
-  margin: 0 auto; /* Centra horizontalmente */
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .colmena-card {
@@ -219,7 +219,13 @@ html, body {
   justify-content: center;
   border-radius: 5px;
   margin-bottom: 10px;
-  font-size: 40px;
+  overflow: hidden;
+}
+
+.colmena-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .colmena-stats {
@@ -251,7 +257,7 @@ html, body {
   padding: 20px;
   color: #666666;
   font-size: 1rem;
-  grid-column: 1 / -1; /* Ocupa toda la fila */
+  grid-column: 1 / -1;
 }
 
 /* Modal */

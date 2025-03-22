@@ -1,17 +1,16 @@
 import React, { Suspense, lazy } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
-// Carga dinámica del componente remoto
-const LoginApp = lazy(() => import("mf_login/LoginApp"));
+const RemoteLogin = lazy(() => import("mf_login/Login"));
 
-const App = () => {
-  return (
-    <div>
-      <h1>Host App</h1>
-      <Suspense fallback={<div>Loading Login...</div>}>
-        <LoginApp />
-      </Suspense>
-    </div>
-  );
-};
+const App = () => (
+  <ErrorBoundary
+    fallback={<div>Something went wrong loading the remote module.</div>}
+  >
+    <Suspense fallback={<div>Loading...</div>}>
+      <RemoteLogin />
+    </Suspense>
+  </ErrorBoundary>
+);
 
 export default App;

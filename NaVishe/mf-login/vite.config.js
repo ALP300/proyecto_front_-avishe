@@ -7,20 +7,20 @@ export default defineConfig({
     react(),
     federation({
       name: "mf_login",
-      filename: "remoteEntry.js",
+      filename: "remoteEntry.js", // Nombre del archivo esperado
       exposes: {
-        "./LoginApp": "./src/App.jsx",
+        "./Login": "./src/Login.jsx", // Asegúrate de que este archivo exista
       },
       shared: ["react", "react-dom", "react-router-dom"],
     }),
   ],
+  // En el vite.config.js del remoto
   server: {
-    port: 5001, // Puerto para mf-login
+    port: 5001,
+    host: "0.0.0.0", // Expone el servidor más allá de localhost
+    cors: true,
   },
   build: {
-    modulePreload: false,
     target: "esnext",
-    minify: false,
-    cssCodeSplit: false,
   },
 });

@@ -8,13 +8,13 @@ export default defineConfig({
     federation({
       name: "host",
       remotes: {
-        mf_login: "http://localhost:5001/assets/remoteEntry.js", // URL donde mf-login expone su remoteEntry.js
+        mf_login: "http://localhost:5001/remoteEntry.js", // Debe coincidir exactamente
       },
       shared: ["react", "react-dom", "react-router-dom"],
     }),
   ],
   server: {
-    port: 5000, // Puerto del host
+    port: 5000,
   },
   build: {
     modulePreload: false,

@@ -1,26 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../index.css";
 import naVisheLogo from "../assets/na-vishe-logo.png";
 import camerasIcon from "../assets/cameras-icon.png";
 import workerIcon from "../assets/worker-icon.png";
 import logoutIcon from "../assets/logout-icon.png";
-import colmenaImage from "../assets/img_colmena.jpg"; 
+import colmenaImage from "../assets/img_colmena.jpg";
+import enVivoIcon from "../assets/en-vivo.png";
 
 const Colmenas = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(9);
-  const [currentYear, setCurrentYear] = useState(2021); 
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [currentYear, setCurrentYear] = useState(2021);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [openMenuId, setOpenMenuId] = useState(null); // Controla qué menú está abierto
+
+  // Referencia para detectar clics fuera del menú
+  const menuRef = useRef(null);
 
   const colmenas = [
-    { id: "3213", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
-    { id: "6436", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
-    { id: "5436", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
-    { id: "6452", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
-    { id: "7482", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
-    { id: "8764", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage },
+    { id: "3213", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.2637, lng: -57.5759 },
+    { id: "6436", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.3000, lng: -57.6000 },
+    { id: "5436", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.2800, lng: -57.5800 },
+    { id: "6452", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.2700, lng: -57.5900 },
+    { id: "7482", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.2600, lng: -57.5700 },
+    { id: "8764", temp: "20°C", humidity: "10%", weight: "20 k", audio: true, image: colmenaImage, lat: -25.2500, lng: -57.5600 },
   ];
 
   const handleOpenModal = () => {
@@ -29,7 +34,7 @@ const Colmenas = () => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setIsCalendarOpen(false); // Cierra el calendario al cerrar el modal
+    setIsCalendarOpen(false);
   };
 
   const toggleCalendar = () => {
@@ -39,6 +44,39 @@ const Colmenas = () => {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
+
+  const handleOpenGoogleMaps = (lat, lng) => {
+    const url = `https://www.google.com/maps?q=${lat},${lng}&z=15`;
+    window.open(url, "_blank");
+  };
+
+  const toggleMenu = (id) => {
+    setOpenMenuId(openMenuId === id ? null : id);
+  };
+
+  const handleModify = (id) => {
+    console.log(`Modificar colmena con ID: ${id}`);
+    setOpenMenuId(null); // Cierra el menú
+  };
+
+  const handleDelete = (id) => {
+    console.log(`Eliminar colmena con ID: ${id}`);
+    setOpenMenuId(null); // Cierra el menú
+  };
+
+  // Cerrar el menú si se hace clic fuera de él
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpenMenuId(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const months = [
     "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
@@ -74,7 +112,7 @@ const Colmenas = () => {
   const handleDateSelect = (day) => {
     const newDate = new Date(currentYear, currentMonth, day);
     setSelectedDate(newDate);
-    setIsCalendarOpen(false); // Cierra el calendario al seleccionar una fecha
+    setIsCalendarOpen(false);
   };
 
   const daysInMonth = getDaysInMonth(currentMonth, currentYear);
@@ -82,7 +120,6 @@ const Colmenas = () => {
   const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
   const emptyDays = Array.from({ length: firstDay === 0 ? 6 : firstDay - 1 }, () => null);
 
-  // Filtrar colmenas según el término de búsqueda
   const filteredColmenas = colmenas.filter((colmena) =>
     colmena.id.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -162,13 +199,39 @@ const Colmenas = () => {
                 <div className="colmena-header">
                   <span>N° - {colmena.id}</span>
                   <div className="colmena-header-icons">
-                    <span className="dropdown-icon">▼</span>
-                    <span className="audio-icon">🎙️</span>
+                    <span
+                      className="dropdown-icon"
+                      onClick={() => toggleMenu(colmena.id)}
+                    >
+                      ▼
+                    </span>
+                    {openMenuId === colmena.id && (
+                      <div className="dropdown-menu" ref={menuRef}>
+                        <div
+                          className="menu-item"
+                          onClick={() => handleModify(colmena.id)}
+                        >
+                          Modificar
+                        </div>
+                        <div
+                          className="menu-item"
+                          onClick={() => handleDelete(colmena.id)}
+                        >
+                          Eliminar
+                        </div>
+                      </div>
+                    )}
+                    <img
+                      src={enVivoIcon}
+                      alt="En Vivo"
+                      className="audio-icon"
+                      onClick={() => handleOpenGoogleMaps(colmena.lat, colmena.lng)}
+                    />
                   </div>
                 </div>
                 <div className="colmena-image-placeholder">
                   <img
-                    src={colmena.image} // Usamos la imagen del array colmenas
+                    src={colmena.image}
                     alt="Colmena"
                     className="colmena-image"
                   />

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../index.css";
+import naVisheLogo from "../assets/na-vishe-logo.png";
+
 
 const Login = ({ onLoginSuccess, onGuestLogin }) => {
   const [email, setEmail] = useState("");
@@ -30,7 +32,6 @@ const Login = ({ onLoginSuccess, onGuestLogin }) => {
       localStorage.setItem("token", data.token);
       setError(null);
       console.log("Inicio de sesión exitoso:", data);
-      // Llama a la función onLoginSuccess pasada como prop
       if (onLoginSuccess) {
         onLoginSuccess(data);
       }
@@ -41,7 +42,6 @@ const Login = ({ onLoginSuccess, onGuestLogin }) => {
 
   const handleGuestLogin = () => {
     console.log("Ingresar como invitado");
-    // Llama a la función onGuestLogin pasada como prop
     if (onGuestLogin) {
       onGuestLogin();
     }
@@ -50,7 +50,7 @@ const Login = ({ onLoginSuccess, onGuestLogin }) => {
   return (
     <div className="login-container">
       <div className="left-section">
-        <img src="/images/na-vishe-logo.png" alt="Ña Vishe Logo" />
+       <img src={naVisheLogo} alt="Ña Vishe Logo" />
         <h1>Ña Vishe</h1>
         <p>
           Bienvenido a Ña Vishe <br /> inicia sesión para poder ingresar

@@ -1,5 +1,6 @@
 import React from "react";
-import Colmenas from "./views/Colmenas"; // Importa tu nueva vista
+import Colmenas from "./views/colmenas";
+
 
 function App() {
   return (

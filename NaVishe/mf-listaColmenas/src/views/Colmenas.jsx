@@ -160,7 +160,10 @@ const Colmenas = () => {
               <div key={colmena.id} className="colmena-card">
                 <div className="colmena-header">
                   <span>N° - {colmena.id}</span>
-                  <span className="audio-icon">🎙️</span>
+                  <div className="colmena-header-icons">
+                    <span className="dropdown-icon">▼</span>
+                    <span className="audio-icon">🎙️</span>
+                  </div>
                 </div>
                 <div className="colmena-image-placeholder">
                   <span>🐝</span>

@@ -6,18 +6,18 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden; /* Evita barras de desplazamiento innecesarias */
+  overflow: hidden;
 }
 
 /* Contenedor principal */
 .dashboard-container {
   display: flex;
-  min-height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
-  width: 100vw; /* Asegura que ocupe todo el ancho de la ventana */
+  min-height: 100vh;
+  width: 100vw;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* Evita problemas con padding/margin */
+  box-sizing: border-box;
 }
 
 /* Barra lateral */
@@ -25,7 +25,7 @@ html, body {
   width: 200px;
   background-color: #FFF9E5;
   padding: 20px;
-  min-height: 100vh; /* Asegura que el sidebar ocupe toda la altura */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -50,7 +50,7 @@ html, body {
 }
 
 .sidebar-nav {
-  flex: 1; /* Hace que la navegación ocupe el espacio disponible */
+  flex: 1;
 }
 
 .sidebar-nav ul {
@@ -91,9 +91,12 @@ html, body {
   flex: 1;
   background-color: #F5F5F5;
   padding: 20px;
-  min-height: 100vh; /* Asegura que el contenido principal ocupe toda la altura */
+  min-height: 100vh;
   box-sizing: border-box;
-  overflow-y: auto; /* Permite desplazamiento vertical si el contenido es largo */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el contenido horizontalmente */
 }
 
 .header {
@@ -104,6 +107,8 @@ html, body {
   background-color: #E9ECEF;
   padding: 10px 20px;
   border-radius: 5px;
+  width: 100%;
+  max-width: 1200px; /* Ancho máximo del header para que esté alineado con las tarjetas */
 }
 
 .header-left h2 {
@@ -162,8 +167,11 @@ html, body {
 /* Cuadrícula de colmenas */
 .colmenas-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
   gap: 20px;
+  width: 100%;
+  max-width: 1200px; /* Ancho máximo para centrar las tarjetas */
+  margin: 0 auto; /* Centra horizontalmente */
 }
 
 .colmena-card {
@@ -172,6 +180,7 @@ html, body {
   border-radius: 10px;
   padding: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .colmena-header {
@@ -184,6 +193,17 @@ html, body {
 .colmena-header span {
   font-weight: bold;
   color: #000000;
+}
+
+.colmena-header-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-icon {
+  font-size: 16px;
+  color: #666666;
 }
 
 .audio-icon {
@@ -231,6 +251,7 @@ html, body {
   padding: 20px;
   color: #666666;
   font-size: 1rem;
+  grid-column: 1 / -1; /* Ocupa toda la fila */
 }
 
 /* Modal */

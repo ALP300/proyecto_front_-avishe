@@ -24,7 +24,7 @@ html, body {
 .sidebar {
   width: 200px;
   background-color: #FFF9E5;
-  padding: 20px;
+  padding: 20px 10px; /* Reduje el padding lateral para un diseño más compacto */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,8 @@ html, body {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 40px; /* Más espacio debajo del logo */
+  justify-content: center; /* Centrar el logo y el texto */
 }
 
 .sidebar-logo {
@@ -56,21 +57,23 @@ html, body {
 .sidebar-nav ul {
   list-style: none;
   padding: 0;
+  margin: 0; /* Eliminar márgenes para un diseño más limpio */
 }
 
 .sidebar-nav li {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 12px 15px; /* Ajusté el padding para que sea más compacto */
+  margin-bottom: 5px;
   color: #000000;
   cursor: pointer;
   font-size: 1rem;
+  position: relative; /* Para posicionar la flecha */
 }
 
 .sidebar-nav li.active {
-  background-color: #e9ecef;
+  background-color: #E9ECEF; /* Fondo gris claro para la opción activa */
   border-radius: 5px;
 }
 
@@ -78,6 +81,13 @@ html, body {
   width: 20px;
   height: 20px;
   font-size: 20px;
+}
+
+.sidebar-arrow {
+  position: absolute;
+  right: 15px; /* Posicionar la flecha a la derecha */
+  font-size: 1rem;
+  color: #000000;
 }
 
 .sidebar-divider {
@@ -273,11 +283,11 @@ html, body {
   background-color: #F5F5F5;
   padding: 5px 10px;
   border-radius: 15px;
-  transition: transform 0.2s ease; /* Transición para el efecto de zoom */
+  transition: transform 0.2s ease;
 }
 
 .stat-item:hover {
-  transform: scale(1.1); /* Efecto de zoom al pasar el cursor */
+  transform: scale(1.1);
 }
 
 .stat-icon {

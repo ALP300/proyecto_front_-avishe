@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../index.css";
 import naVisheLogo from "../assets/na-vishe-logo.png";
 
-
 const Login = ({ onLoginSuccess, onGuestLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,7 +49,7 @@ const Login = ({ onLoginSuccess, onGuestLogin }) => {
   return (
     <div className="login-container">
       <div className="left-section">
-       <img src={naVisheLogo} alt="Ña Vishe Logo" />
+        <img src={naVisheLogo} alt="Ña Vishe Logo" className="login-logo" />
         <h1>Ña Vishe</h1>
         <p>
           Bienvenido a Ña Vishe <br /> inicia sesión para poder ingresar
@@ -61,25 +60,33 @@ const Login = ({ onLoginSuccess, onGuestLogin }) => {
           <h2>Iniciar Sesión</h2>
           {error && <p className="error-message">{error}</p>}
           <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Correo electrónico"
-            />
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Contraseña"
-            />
-            <button type="submit">Ingresar</button>
+            <div className="form-group">
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Correo electrónico"
+                className="login-input"
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Contraseña"
+                className="login-input"
+              />
+            </div>
+            <button type="submit" className="login-button">
+              Ingresar
+            </button>
           </form>
-          <p className="guest-link" onClick={handleGuestLogin}>
+          <button className="guest-button" onClick={handleGuestLogin}>
             Ingresar como invitado
-          </p>
+          </button>
         </div>
       </div>
     </div>

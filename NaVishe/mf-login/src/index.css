@@ -1,119 +1,132 @@
+/* index.css */
+
+/* Asegurarse de que el body y html no restrinjan el tamaño */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* Contenedor principal del login */
 .login-container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
 }
 
+/* Sección izquierda */
 .left-section {
-  display: none;
-  width: 33.33%;
-  background-color: #fef9c3; /* Light yellow */
+  flex: 0 0 30%; /* Ocupa el 30% del ancho */
+  background-color: #FFF9E5; /* Fondo amarillo claro */
+  display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 2rem;
+  justify-content: center;
+  padding: 40px 20px; /* Más padding vertical para centrar mejor */
+  text-align: center;
 }
 
-@media (min-width: 768px) {
-  .left-section {
-    display: flex;
-  }
-}
-
-.left-section img {
-  width: 6rem;
-  height: 6rem;
-  margin-bottom: 1rem;
+.login-logo {
+  width: 260px; /* Logo más grande */
+  height: 170px;
+  margin-bottom: 30px; /* Más espacio debajo del logo */
 }
 
 .left-section h1 {
-  font-size: 1.875rem;
-  font-weight: bold;
-  color: #1f2937;
+  font-size: 2.8rem; /* Título más grande */
+  color: #000000;
+  margin: 0 0 15px 0; /* Más espacio debajo del título */
 }
 
 .left-section p {
-  color: #4b5563;
-  text-align: center;
-  margin-top: 0.5rem;
+  font-size: 1.3rem; /* Texto más grande */
+  color: #000000;
+  line-height: 1.5;
 }
 
+/* Sección derecha */
 .right-section {
-  flex: 1;
+  flex: 1; /* Ocupa el resto del espacio */
+  background-color: #FFFFFF;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff;
-  padding: 2rem;
+  padding: 40px 20px;
 }
 
 .form-container {
   width: 100%;
-  max-width: 28rem;
+  max-width: 350px; /* Ancho del formulario */
+  text-align: center;
 }
 
 .form-container h2 {
-  font-size: 1.875rem;
-  font-weight: bold;
-  color: #1f2937;
-  margin-bottom: 2rem;
-  text-align: center;
-  position: relative; /* Para el pseudo-elemento de la línea */
-}
-
-.form-container h2::after {
-  content: "";
-  position: absolute;
-  bottom: -0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4rem; /* Ancho de la línea */
-  height: 2px; /* Grosor de la línea */
-  background-color: #3b82f6; /* Azul para la línea */
-}
-
-.form-container input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 9999px;
-  outline: none;
-  margin-bottom: 1.5rem;
-  background-color: #ffffff; /* Fondo blanco para los inputs */
-}
-
-.form-container input:focus {
-  border: 2px solid #ca8a04; /* Borde amarillo al enfocar */
-  box-shadow: 0 0 0 3px rgba(202, 138, 4, 0.1); /* Sombra amarilla suave */
-}
-
-.form-container button {
-  width: 100%;
-  background-color: #6B7280; /* Verde oliva para el botón */
-  color: #ffffff;
-  padding: 0.75rem;
-  border-radius: 9999px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.form-container button:hover {
-  background-color: #4B5563; /* Verde oliva más oscuro al pasar el mouse */
-}
-
-.guest-link {
-  text-align: center;
-  margin-top: 1rem;
-  color: #1f2937; /* Negro para el texto */
-  cursor: pointer;
-}
-
-.guest-link:hover {
-  color: #4B5563; /* Gris oscuro al pasar el mouse, sin subrayado */
+  font-size: 2.5rem; /* Título más grande */
+  color: #000000;
+  margin-bottom: 40px; /* Más espacio debajo del título */
 }
 
 .error-message {
-  color: #ef4444;
-  text-align: center;
-  margin-bottom: 1rem;
+  color: #ff0000;
+  font-size: 1.1rem; /* Texto de error más grande */
+  margin-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 20px; /* Espacio entre los campos */
+}
+
+.login-input {
+  padding: 14px 20px; /* Campos más grandes */
+  font-size: 1.2rem; /* Texto más grande */
+  border: 1px solid #000000; /* Borde negro */
+  border-radius: 25px; /* Bordes redondeados */
+  background-color: #F5F5F5; /* Fondo gris claro */
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-input::placeholder {
+  color: #666666;
+  font-size: 1.2rem; /* Placeholder más grande */
+}
+
+.login-button {
+  padding: 14px; /* Botón más alto */
+  font-size: 1.2rem; /* Texto más grande */
+  font-weight: bold;
+  color: #FFFFFF;
+  background-color: #8A9A5B; /* Verde oscuro */
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.login-button:hover {
+  background-color: #7A8A4B; /* Verde más oscuro al pasar el mouse */
+}
+
+.guest-button {
+  margin-top: 20px; /* Espacio arriba del botón */
+  padding: 14px; /* Mismo padding que el botón principal */
+  font-size: 1.2rem; /* Texto más grande */
+  font-weight: bold;
+  color: #000000;
+  background-color: transparent; /* Fondo transparente */
+  border: 1px solid #8A9A5B; /* Borde verde oscuro */
+  border-radius: 25px;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.guest-button:hover {
+  background-color: #F5F5F5; /* Fondo gris claro al pasar el mouse */
 }

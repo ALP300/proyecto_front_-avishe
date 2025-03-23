@@ -81,7 +81,7 @@ html, body {
 }
 
 .login-input {
-  padding: 14px 20px; /* Campos más grandes */
+  padding: 14px 20px; 
   font-size: 1.2rem; /* Texto más grande */
   border: 1px solid #000000; /* Borde negro */
   border-radius: 25px; /* Bordes redondeados */
